@@ -21,10 +21,13 @@ const Form = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Get API URL from environment variable or fallback to localhost
+  const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
   const onSubmit = async (data) => {
     try {
       setIsSubmitting(true);
-      const response = await axios.post('/api/send-mail', data);
+      const response = await axios.post(`${apiBaseUrl}/api/send-mail`, data);
 
       if (response.data?.success) {
         toast.success('Your message has been sent successfully.');
@@ -52,7 +55,7 @@ const Form = () => {
             id="fullName"
             type="text"
             className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-primary-500 focus:ring-2 focus:ring-primary-100"
-            placeholder="John Doe"
+            placeholder="Name"
             {...register('fullName', {
               required: 'Full name is required',
               minLength: { value: 2, message: 'Full name must be at least 2 characters' },

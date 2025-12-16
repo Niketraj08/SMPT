@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: warp-smtp-backend
+    env: node
+    plan: free
+    repo: https://github.com/YOUR_USERNAME/WARP-SMTP.git
+    branch: main
+    rootDir: server
+    startCommand: npm start
+    buildCommand: npm install
+    
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_ORIGIN
+        value: https://your-netlify-site.netlify.app
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USER
+        fromDatabase: false
+      - key: SMTP_PASS
+        fromDatabase: false
+      - key: SENDER_EMAIL
+        fromDatabase: false
+      - key: SENDER_NAME
+        value: WARP Contact Form
